@@ -41,6 +41,7 @@ DeleteColumns.py: Drop any duplicate columns from all files except for one.
 
 MergeData.py: Combine player performance statistics with matching players for each national team by season and add a new Position column.
 
+
 #### Team Data Processing
 
 ResultsSorter.py: Create a DataFrame containing only European international matches.
@@ -55,6 +56,7 @@ Team_Profile_By_Year.py: For each team per season, combine data for each column 
 
 Difference_Calculator.py: Calculate the difference in stats for that season between each team in each match using the team profile data.
 
+
 #### Algorithm
 
 Algorithm_Data_Preparation.py: Prepare the data for the algorithm.
@@ -63,9 +65,11 @@ RandomForest_Algorithm.ipynb: Build and optimize the Random Forest models.
 
 Data: Contains all the data processed from Algorithm_Data_Preparation.py.
 
+
 #### Data
 
 Contains the original and processed data sorted in various folders.
+
 
 #### Final Predictions
 

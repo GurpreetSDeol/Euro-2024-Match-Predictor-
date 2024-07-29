@@ -1,15 +1,47 @@
-# Euro-2024-Match-Predictor-
-A project about predicting the final winner of the 2024 Euros using RandomForest based on league player performance data collected from 2017/18 till today.
+# Euro-2024-Match-Predictor
+A project aimed at predicting the winner of the 2024 Euros using a Random Forest model based on league player performance data collected from the 2017/18 season to the present.
 
-Instead of taking the usual approach of match statistics to make a predictor, I wanted to try using the data about national team players at club level instead. The basic approach is to create a national team profile for each European team per year, which contains attributes of various types of performance-related data, such as tackles, goals, saves, etc. Then for each match, find the difference between the profiles of the two teams and use that to build two Random Forest models which predict how many goals each team may score. After a lot of optimization, the final accuracy was about 55.21% and the predicted winner for the 2024 Euros is Germany.
-This is assuming I have got the round of 16 teams correct as the format of the tournament is different this year. I will update the accuracy of each stage of the tournament as it progresses.
+# Project Overview
+Rather than using traditional match statistics to build a predictor, this project utilizes data on national team players at the club level. The core idea is to create a national team profile for each European team annually, incorporating various performance-related attributes such as tackles, goals, saves, etc. For each match, the difference between the profiles of the two teams is calculated and used to build two Random Forest models that predict the number of goals each team might score. After extensive optimization, the model achieved an accuracy of approximately 55.21%, predicting Germany as the winner of the 2024 Euros. This prediction assumes the correct identification of the round of 16 teams, considering the tournament's unique format this year. The accuracy will be updated as the tournament progresses.
 
-Overall Process
-Firstly, I collected data about players from the most popular leagues in the world, then I collected the European National team lineups from 2016/2017 onwards. Since it would be impossible to get data for every single player for each national lineup, I combined these files together and filtered out the players I had no data for, which was a bigger issue for smaller European countries. The Team profile data was calculated using the mean of the players' data; however, I did not want to use the data from GKs to factor into the performance of FWs, for example. Therefore, since I had data for 7 positions, I calculated the mean for each team, per season, per position. If any country had no data for a particular position, there were a few methods employed to work around that.
+# Overall Process
+Data Collection:
 
-For the final step, for each attribute, I chose the mean from the most appropriate position. For example, the data about saves per 90 would be the mean value from the GK position, whereas the data for forward passes would be the average between the DF, MF, and AM. Then for each match, the difference between two teams was calculated using the team profile for that year.
+Gathered player data from major global leagues.
+Collected European National team lineups from 2016/2017 onwards.
+Filtered out players with no available data, which posed a greater challenge for smaller European countries.
+Team Profile Calculation:
 
-Overview of Files
-The Data Processing folder contains 3 folders, meant to be used in the following order: Player Data Processing, Team Data Processing, and Algorithm. The folders contain the Python files used and a README file explaining the order of the files. The Data folder contains all of the data. The New Data contains files I found for the project and my collected data, some I used. The Final Data contains all the data used for the project.
+Calculated team profiles using the mean performance data of players by position, excluding goalkeepers (GKs) when evaluating forwards (FWs) and vice versa.
+Averaged data for each team, per season, per position, employing specific methods to handle missing data for any position.
+Attribute Selection:
 
-This was my first major project, so any feedback to improve this would be greatly appreciated.
+Selected the mean value for each attribute from the most relevant position (e.g., saves per 90 minutes from GKs, forward passes from a combination of defenders (DF), midfielders (MF), and attacking midfielders (AM)).
+Calculated the difference between the team profiles for each match.
+Folder Structure
+Data Processing
+Player Data Processing
+Normalize_Names.py: Fix encoding issues with team and player names across all data files to prepare for merging.
+CreateKey.py: Create a unique key for each player per season to use as the merging column.
+DeleteColumns.py: Drop any duplicate columns from all files except for one.
+MergeData.py: Combine player performance statistics with matching players for each national team by season and add a new Position column.
+Team Data Processing
+ResultsSorter.py: Create a DataFrame containing only European international matches.
+Mean_Calculator.py: Calculate the mean for every numeric column grouped by position, per country, per season.
+Clean_Mean_File.py: Deal with any missing values after the mean calculation with appropriate methods.
+Position_Per_Column.ipynb: Identify the top 2 positions with the highest value for each column.
+Team_Profile_By_Year.py: For each team per season, combine data for each column from the most relevant position, such as save% data from GK only.
+Difference_Calculator.py: Calculate the difference in stats for that season between each team in each match using the team profile data.
+Algorithm
+Algorithm_Data_Preparation.py: Prepare the data for the algorithm.
+RandomForest_Algorithm.ipynb: Build and optimize the Random Forest models.
+Data: Contains all the data processed from Algorithm_Data_Preparation.py.
+Data
+Contains the original and processed data sorted in various folders.
+
+Final Predictions
+Final_Predictions.csv: The final predictions for the 2024 Euros.
+Future Updates
+The accuracy and predictions will be updated as the tournament progresses through different stages.
+Feedback
+This was my first major project, and I welcome any feedback for improvement.
